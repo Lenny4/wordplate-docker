@@ -1,0 +1,26 @@
+#  https://minhcung.me/how-to-start-wordpress-with-caddy-using-docker-compose-3d31bb9ef88b
+version: '3.9'
+services:
+  database:
+    image: mariadb:latest
+    restart: always
+    volumes:
+      - maria_data_wp:/var/lib/mysql
+    env_file:
+      - .env
+      - .env.local
+    command: '--default-authentication-plugin=mysql_native_password'
+    ports:
+      - "3306:3306"
+
+  wordpress:
+    build:
+      context: .
+      target: wordpress_dev
+    depends_on:
+      - database
+    links:
+      - database
+
+volumes:
+  maria_data_wp:

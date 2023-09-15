@@ -1,0 +1,42 @@
+#https://github.com/ned-kelly/docker-caddy-wordpress
+version: '3.9'
+
+services:
+  wordpress:
+    build:
+      context: .
+      target: wordpress_prod
+    restart: always
+    env_file:
+      - .env
+      - .env.local
+    volumes:
+      - "./:/var/www/html"
+      - "./docker/php/dev.ini:/usr/local/etc/php/conf.d/custom.ini"
+
+  caddy:
+    image: caddy:alpine
+    restart: always
+    env_file:
+      - .env
+      - .env.local
+    ports:
+      # HTTP
+      - target: ${HTTP_PORT:-80}
+        published: ${HTTP_PORT:-80}
+        protocol: tcp
+      # HTTPS
+      - target: 443
+        published: ${HTTPS_PORT:-443}
+        protocol: tcp
+      # HTTP/3
+      - target: 443
+        published: ${HTTP3_PORT:-443}
+        protocol: udp
+    links:
+      - wordpress
+    working_dir: /var/www/html
+    volumes:
+      - "./docker/caddy/Caddyfile:/etc/caddy/Caddyfile"
+      - "./:/var/www/html"
+      - "./docker/php/dev.ini:/usr/local/etc/php/conf.d/custom.ini"

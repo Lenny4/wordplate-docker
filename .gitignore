@@ -11,3 +11,6 @@
 /public/wordpress
 /vendor
 auth.json
+.idea
+.env.local
+composer.lock

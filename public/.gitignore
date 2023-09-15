@@ -1,0 +1,12 @@
+languages
+mu-plugins/*
+!mu-plugins/mu-plugins.php
+plugins/*
+!plugins/my-plugin
+!plugins/index.php
+upgrade
+uploads
+wordpress
+themes/*
+!themes/index.php
+!themes/generatepress_child
