@@ -28,6 +28,8 @@ RUN set -eux; \
 	composer install --prefer-dist --no-dev --no-scripts --no-progress; \
 	composer clear-cache
 
+COPY ./docker/php/prod.ini /usr/local/etc/php/conf.d/custom.ini
+
 FROM wordpress_prod AS wordpress_dev
 
 RUN install-php-extensions xdebug-stable
