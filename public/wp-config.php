@@ -16,6 +16,8 @@ define('WP_ENVIRONMENT_TYPE', env('WP_ENVIRONMENT_TYPE', 'production'));
 // Set the default WordPress theme.
 define('WP_DEFAULT_THEME', env('WP_DEFAULT_THEME', 'wordplate'));
 
+define('WP_MEMORY_LIMIT', env('WP_MEMORY_LIMIT', '256M'));
+
 // For developers: WordPress debugging mode.
 $isDebugModeEnabled = env('WP_DEBUG', false);
 define('WP_DEBUG', $isDebugModeEnabled);
